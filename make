@@ -13,7 +13,7 @@ case ${1} in
 	;;
   
   "bundle")
-	sh ./scripts/build-tool.sh android-bundle && sh ./scripts/build-tool.sh ios-bundle
+	sh ./make android-bundle && sh ./make ios-bundle
 	;;
   
   "clear")
