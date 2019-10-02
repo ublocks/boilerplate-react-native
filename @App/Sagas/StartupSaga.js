@@ -17,6 +17,7 @@ export function* startup() {
   // When those operations are finished we redirect to the main screen
   // it important to use requestAnimationFrame to wrap  navigation actions!
   requestAnimationFrame(() => {
-    Actions.ExampleScreen({ type: 'replace' });
+    // Actions.ExampleScreen({ type: 'replace' });
+    Actions.ApiExampleScreen();
   });
 }
