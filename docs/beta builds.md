@@ -255,7 +255,7 @@ You can remove the `deploy lane` to avoid some mistakes, and replace the `beta` 
     releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
     gradle(task: 'clean')
     gradle(
-      task: 'assemble',
+      task: 'bundle',
       build_type: 'Release',
       print_command: false,
       properties: {
@@ -270,7 +270,7 @@ You can remove the `deploy lane` to avoid some mistakes, and replace the `beta` 
     )
 ```
 
-As you can see, we need to sign our APK with a signing key.
+As you can see, we need to sign our AAB (or APK) with a signing key.
 Don't worry, we will generate it in a moment, let's just explain what the lane do.
 
 First, script ask the user two values : signing store and alias key passwords, with the [`prompt`](https://docs.fastlane.tools/actions/prompt/) fastlane plugin.

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import ExampleActions from 'App/Stores/Example/Actions';
 import { liveInEurope } from 'App/Stores/Example/Selectors';
-import Style from './ExampleScreenStyle';
+import Style from './ApiExampleScreenStyle';
 import { Images } from 'App/Theme';
 import { translate as t } from 'App/Helpers/I18n';
 
@@ -22,7 +22,7 @@ const instructions = Platform.select({
   // 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
 });
 
-class ExampleScreen extends React.Component {
+class ApiExampleScreen extends React.Component {
   componentDidMount() {
     this._fetchUser();
   }
@@ -69,7 +69,7 @@ class ExampleScreen extends React.Component {
   }
 }
 
-ExampleScreen.propTypes = {
+ApiExampleScreen.propTypes = {
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
   userErrorMessage: PropTypes.string,
@@ -91,4 +91,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ExampleScreen);
+)(ApiExampleScreen);

@@ -1,6 +1,10 @@
 export default {
   language: 'en',
-  title: 'To get started, edit App.js',
+  root_hello_world: 'Hello World!',
+  root_greeting: 'This is the first scene of your App!',
+  root_description:
+    'This boilerplate provides some useful example that could helps you develop app faster then ever.',
+  title: 'To get started, edit Containers/Example/ExampleScreen.js',
   instructions_ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
   instructions_android:
     'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
@@ -8,4 +12,6 @@ export default {
   live_in_eu: 'I live in Europe !',
   not_live_in_eu: "I don't live in Europe.",
   refresh: 'Refresh',
+  btnOpenApiExample: 'Open Scene: API Example',
+  btnOpenFcmExample: 'Open Scene: FCM Example',
 };
