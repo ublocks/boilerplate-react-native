@@ -1,4 +1,4 @@
-package io.ublocks.boilerplate;
+package ublocks.boilerplate;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

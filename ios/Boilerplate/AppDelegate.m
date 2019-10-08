@@ -19,6 +19,11 @@
   if ([FIRApp defaultApp] == nil) {
     [FIRApp configure];
   }
+  
+  // react-native-unimodules
+  // link: https://gist.github.com/brentvatne/1ece8c32a3c5c9d0ac3a470460c65603
+  self.moduleRegistryAdapter = [[UMModuleRegistryAdapter alloc] initWithModuleRegistryProvider:[[UMModuleRegistryProvider alloc] init]];
+  
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"Boilerplate"
@@ -34,6 +39,13 @@
   return YES;
 }
 
+- (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge
+{
+  NSArray<id<RCTBridgeModule>> *extraModules = [_moduleRegistryAdapter extraModulesForBridge:bridge];
+  // You can inject any extra modules that you would like here, more information at:
+  // https://facebook.github.io/react-native/docs/native-modules-ios.html#dependency-injection
+  return extraModules;
+}
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

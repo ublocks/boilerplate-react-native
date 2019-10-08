@@ -1,4 +1,4 @@
-package io.ublocks.boilerplate.generated;
+package ublocks.boilerplate.generated;
 
 import java.util.Arrays;
 import java.util.List;

@@ -9,7 +9,7 @@ import VersionNumber from 'react-native-version-number';
 import { setI18nConfig } from 'App/Helpers/I18n';
 import AppStateActions from 'App/Stores/AppState/Actions';
 
-const EVENT = {
+const EVENTS = {
   CHANGE: 'change',
 };
 
@@ -47,10 +47,10 @@ class AppMonitor extends React.Component {
     this.onLocalizationChange();
 
     // AppState change event listener
-    AppState.addEventListener(EVENT.CHANGE, this.onAppStateChange);
+    AppState.addEventListener(EVENTS.CHANGE, this.onAppStateChange);
 
     // Locale change event listener
-    RNLocalize.addEventListener(EVENT.CHANGE, this.onLocalizationChange);
+    RNLocalize.addEventListener(EVENTS.CHANGE, this.onLocalizationChange);
   }
 
   /**
@@ -61,7 +61,7 @@ class AppMonitor extends React.Component {
     AppState.removeEventListener(EVENTS.CHANGE, this.onAppStateChange);
 
     // Locale change event listener
-    RNLocalize.addEventListener(EVENT.CHANGE, this.onLocalizationChange);
+    RNLocalize.addEventListener(EVENTS.CHANGE, this.onLocalizationChange);
   }
 
   /**
