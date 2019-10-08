@@ -1,13 +1,19 @@
 import React from 'react';
-import { Alert, Platform, Text, View, Image, Clipboard, Button } from 'react-native';
+import {
+  Clipboard,
+  ScrollView,
+  Platform,
+  Alert,
+  Text,
+  View,
+  Image,
+  Button,
+} from 'react-native';
 import { connect } from 'react-redux';
-import Style from './FcmExampleScreenStyle';
-
+import { Permissions } from 'react-native-unimodules';
 import messaging from '@react-native-firebase/messaging';
 
-// WORKAROUND for iOS permissions issue
-// ref: https://github.com/invertase/react-native-firebase/issues/2657
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import Style from './FcmExampleScreenStyle';
 
 /**
  * This is an example of how to interact with FCM(Firebase Cloud Messaging).
@@ -19,8 +25,9 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 class FcmExampleScreen extends React.Component {
   state = {
+    permission: null,
     message: '',
-    token: '',
+    token: 'no token yet',
   };
 
   // Setup FCM permission and listeners when the scene is mounted
@@ -31,32 +38,22 @@ class FcmExampleScreen extends React.Component {
     await this.createNotificationListeners();
   }
 
-  // Remove listeners allocated in createNotificationListeners()
-  componentWillUnmount() {
-    // this.notificationListener();
-    // this.notificationOpenedListener();
-  }
-
-  async requestPermission() {
+  requestPermission = async () => {
     try {
-      // Check if app has push-notification permission
-      // const enabled = await messaging().hasPermission();
-      const enabled = await PushNotificationIOS.checkPermissions();
-      if (!enabled) {
-        // WORKAROUND for iOS permissions issue
-        // ref: https://github.com/invertase/react-native-firebase/issues/2657
-        await PushNotificationIOS.requestPermissions();
-        // await messaging().requestPermission();
+      if (Platform.OS === 'ios') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        this.setState({
+          permission: status,
+        });
+        if (status !== 'granted') {
+          throw new Error('@FCM: Notification permission not granted.');
+        }
       }
-
-      // User has authorized
-      const token = await messaging().getToken();
-      this.setState({ token });
-      console.log('@FCM: Token=>', token);
+      await this.onPressGetToken();
     } catch (error) {
       // User has rejected permissions
       console.log('@FCM: permission rejected, ', error);
-      if (error.message.includes('MISSING_INSTANCEID_SERVICE')) {
+      if (error.message.includes('MISSING_INSTANCE_SERVICE')) {
         // This error means your device has no Google Play Services.
         Alert.alert(
           'Oops',
@@ -64,38 +61,9 @@ class FcmExampleScreen extends React.Component {
         );
       }
     }
-  }
+  };
 
-  async createNotificationListeners() {
-    // /*
-    //  * Triggered when a particular notification has been received in foreground
-    //  * */
-    // this.notificationListener = firebase
-    //   .notifications()
-    //   .onNotification((notification) => {
-    //     const { title, body } = notification;
-    //     this.showAlert(title, body);
-    //   });
-
-    // /*
-    //  * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
-    //  * */
-    // this.notificationOpenedListener = firebase
-    //   .notifications()
-    //   .onNotificationOpened((notificationOpen) => {
-    //     const { title, body } = notificationOpen.notification;
-    //     this.showAlert(title, body);
-    //   });
-
-    // /*
-    //  * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
-    //  * */
-    // const notificationOpen = await firebase.notifications().getInitialNotification();
-    // if (notificationOpen) {
-    //   const { title, body } = notificationOpen.notification;
-    //   this.showAlert(title, body);
-    // }
-
+  createNotificationListeners = async () => {
     /*
      * Triggered for data only payload in foreground
      * */
@@ -107,36 +75,50 @@ class FcmExampleScreen extends React.Component {
         message,
       });
     });
-  }
+  };
 
-  showAlert(title, body) {
-    Alert.alert(title, body, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], {
-      cancelable: false,
+  onPressGetToken = async () => {
+    // User has authorized
+    const token = await messaging().getToken();
+    this.setState({
+      token,
     });
-  }
+    Clipboard.setString(token);
+    console.log('@FCM: Token=>', token);
+  };
 
   render() {
-    const { message, token } = this.state;
+    const { message, token, permission } = this.state;
     return (
       <View style={Style.container}>
-        <View style={Style.logoContainer}>
+        <ScrollView>
           <Image
-            style={Style.logo}
+            style={Style.image}
             source={{
-              uri:
-                'https://firebase.google.com/docs/cloud-messaging/images/messaging-overview.png',
+              uri: 'https://i.ytimg.com/vi/sioEY4tWmLI/maxresdefault.jpg',
             }}
             resizeMode={'contain'}
           />
-        </View>
-        <Text style={Style.title}>Firebase Cloud Messaging Example</Text>
-        <Text style={Style.instructions}>
-          This example will shows push notifications message when it arrives.
-        </Text>
-        <Text style={Style.result}>
-          {JSON.stringify(message || 'no message arrives')}
-        </Text>
-        <Button onPress={() => Clipboard.setString(token)} title="Copy FCM Token" />
+          <Text style={Style.title}>FCM Example</Text>
+          <Text style={Style.content}>
+            This example will shows push notifications message when it arrives.
+          </Text>
+
+          {Platform.OS === 'ios' && (
+            <>
+              <Text style={Style.title}>Permission Status</Text>
+              <Text style={Style.content}>{JSON.stringify(permission)}</Text>
+            </>
+          )}
+
+          <Text style={Style.title}>Device Token</Text>
+          <Text style={Style.content}>{token}</Text>
+
+          <Text style={Style.title}>Receive Message</Text>
+          <Text style={Style.message}>{JSON.stringify(message)}</Text>
+
+          <Button onPress={this.onPressGetToken} title="Copy FCM Token" />
+        </ScrollView>
       </View>
     );
   }

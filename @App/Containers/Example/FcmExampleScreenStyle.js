@@ -10,47 +10,27 @@ export default ScaledSheet.create({
     justifyContent: 'center',
   },
   title: {
-    ...Fonts.style.h3,
-    textAlign: 'center',
+    ...Fonts.style.h4,
+    textAlign: 'left',
     marginBottom: 10,
   },
-  text: {
+  content: {
     ...Fonts.style.normal,
     textAlign: 'center',
     marginBottom: 5,
-  },
-  instructions: {
-    ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
-    fontStyle: 'italic',
-  },
-  token: {
-    ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
+
     color: 'gray',
   },
-  result: {
+  message: {
     ...Fonts.style.normal,
     textAlign: 'center',
     marginTop: 5,
     marginBottom: 5,
     color: 'blue',
   },
-  error: {
-    ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
-    color: 'red',
-  },
-  logoContainer: {
+  image: {
     width: '100%',
-    height: 300,
-    marginBottom: 25,
-  },
-  logo: {
-    width: '100%',
-    height: '100%',
+    height: '200@s',
+    marginBottom: '15@vs',
   },
 });

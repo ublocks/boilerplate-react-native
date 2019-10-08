@@ -2,7 +2,6 @@
     <img src="App/Assets/Images/TOM-Legend.png" alt="Logo" width="100%">
 </div>
 
-
 # TheCodingMachine React Native boilerplate
 
 This project is a [React Native](https://facebook.github.io/react-native/) boilerplate that can be used to kickstart a mobile application.
