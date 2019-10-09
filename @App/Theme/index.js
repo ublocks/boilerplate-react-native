@@ -3,7 +3,7 @@ import Fonts from './Fonts';
 import Metrics from './Metrics';
 import Images from './Images';
 import Styles from './Styles';
-import Helpers from './Helpers';
+import Classes from './Classes';
 import Global from './Global';
 
-export { Colors, Fonts, Images, Metrics, Styles, Helpers, Global };
+export { Colors, Fonts, Images, Metrics, Styles, Classes, Global };
