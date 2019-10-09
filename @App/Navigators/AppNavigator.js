@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { LoadingIndicator } from 'ublocks-react-native';
+import { LoadingIndicator } from '@ublocks-react-native/component';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 
 import AppMonitor from './AppMonitor';
@@ -50,7 +50,7 @@ class AppNavigator extends React.Component {
                 }}
               />
             )}
-            {/* <LoadingIndicator open={isLoading} /> */}
+            <LoadingIndicator open={isLoading} />
           </React.Fragment>
         )}
       </AppMonitor>
