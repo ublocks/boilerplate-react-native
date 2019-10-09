@@ -11,9 +11,12 @@ case ${1} in
   "ios-bundle")
 	node node_modules/react-native/local-cli/cli.js bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios
 	;;
+
+  "versionning")
+  genversion @App/Config/version.js -e -p ./package.json;;
   
   "bundle")
-	sh ./make android-bundle && sh ./make ios-bundle
+	sh ./make android-bundle && sh ./make ios-bundle && sh ./make versionning
 	;;
   
   "clear")
