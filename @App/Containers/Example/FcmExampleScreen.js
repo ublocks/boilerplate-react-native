@@ -32,7 +32,7 @@ class FcmExampleScreen extends React.Component {
 
   // Setup FCM permission and listeners when the scene is mounted
   async componentDidMount() {
-    console.log('@Enter FcmExampleScreen!');
+    __DEV__ && console.log('@Mount FcmExampleScreen!');
 
     await this.requestPermission();
     await this.createNotificationListeners();
@@ -52,7 +52,7 @@ class FcmExampleScreen extends React.Component {
       await this.onPressGetToken();
     } catch (error) {
       // User has rejected permissions
-      console.log('@FCM: permission rejected, ', error);
+      __DEV__ && console.log('@FCM: permission rejected, ', error);
       if (error.message.includes('MISSING_INSTANCE_SERVICE')) {
         // This error means your device has no Google Play Services.
         Alert.alert(
@@ -69,7 +69,7 @@ class FcmExampleScreen extends React.Component {
      * */
     this.messageListener = messaging().onMessage((message) => {
       //process data message
-      console.log(JSON.stringify(message));
+      __DEV__ && console.log(JSON.stringify(message));
 
       this.setState({
         message,
@@ -84,7 +84,7 @@ class FcmExampleScreen extends React.Component {
       token,
     });
     Clipboard.setString(token);
-    console.log('@FCM: Token=>', token);
+    __DEV__ && console.log('@FCM: Token=>', token);
   };
 
   render() {

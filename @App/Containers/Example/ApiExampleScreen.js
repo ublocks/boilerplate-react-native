@@ -24,6 +24,7 @@ const instructions = Platform.select({
 
 class ApiExampleScreen extends React.Component {
   componentDidMount() {
+    __DEV__ && console.log('@Mount ApiExampleScreen!');
     this._fetchUser();
   }
 
