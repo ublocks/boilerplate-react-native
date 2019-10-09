@@ -27,6 +27,9 @@ const style = {
   normal: {
     fontSize: size.regular,
   },
+  bold: { fontWeight: 'bold' },
+  italic: { fontStyle: 'italic' },
+  underline: { textDecorationLine: 'underline' },
 };
 
 export default {
