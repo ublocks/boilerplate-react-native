@@ -20,11 +20,14 @@
     "ci-ios-release": "./make ci ios release",
     "ci-android-beta": "./make ci android beta",
     "ci-android-release": "./make ci android release",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "postinstall": "npx jetify && ./make postinstall"
   },
   "dependencies": {
     "@react-native-firebase/app": "^6.0.1",
     "@react-native-firebase/messaging": "^6.0.1",
+    "@ublocks-react-native/component": "^1.0.1-alpha.3",
+    "@ublocks-react-native/helper": "^1.0.1-alpha.2",
     "axios": "^0.19.0",
     "i18n-js": "^3.3.0",
     "prop-types": "^15.7.2",
@@ -55,6 +58,7 @@
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.5.0",
     "babel-plugin-transform-remove-console": "^6.9.4",
+    "conventional-changelog-cli": "^2.0.23",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
