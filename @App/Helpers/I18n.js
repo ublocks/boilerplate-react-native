@@ -25,3 +25,8 @@ export const setI18nConfig = () => {
   i18n.translations = { [languageTag]: Locales[languageTag]() };
   i18n.locale = languageTag;
 };
+
+export default {
+  setI18nConfig,
+  translate,
+};

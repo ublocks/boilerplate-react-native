@@ -1,6 +1,3 @@
-import ScreenHelper from './Screen';
-import I18nHelper from './I18n';
-
-export const { ScaledSheet } = require('react-native-size-matters/extend');
-export const Screen = ScreenHelper;
-export const I18n = I18nHelper;
+export { ScaledSheet } from 'react-native-size-matters/extend';
+export { Screen } from '@ublocks-react-native/helper';
+export { default as I18n } from './I18n';
