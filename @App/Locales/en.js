@@ -1,6 +1,8 @@
 export default {
   language: 'en',
   root_hello_world: 'Hello World!',
+  root_right: 'Right',
+  root_left: 'Left',
   root_greeting: 'This is the first scene of your App!',
   root_description:
     'This boilerplate provides some useful example that could helps you develop app faster then ever.',
@@ -12,6 +14,6 @@ export default {
   live_in_eu: 'I live in Europe !',
   not_live_in_eu: "I don't live in Europe.",
   refresh: 'Refresh',
-  btnOpenApiExample: 'Open Scene: API Example',
-  btnOpenFcmExample: 'Open Scene: FCM Example',
+  btnOpenApiExample: 'API Example',
+  btnOpenFcmExample: 'FCM Example',
 };
