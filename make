@@ -13,7 +13,7 @@ case ${1} in
 	;;
 
   "versionning")
-  genversion @App/Config/version.js -e -p ./package.json;;
+  genversion @App/version.js -e -p ./package.json;;
   
   "bundle")
 	sh ./make android-bundle && sh ./make ios-bundle && sh ./make versionning

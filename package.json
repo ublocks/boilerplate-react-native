@@ -1,6 +1,6 @@
 {
   "name": "Boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "react-native start",
@@ -14,14 +14,14 @@
     "sonar": "./make sonar",
     "clear": "./make clear",
     "bundle": "./make bundle",
-    "ver": "genversion @App/version.js -e",
+    "ver": "./make versionning",
     "prettier-fix": "prettier --write **/*.js",
     "prettier-check": "prettier --list-different **/*.js",
     "ci-ios-beta": "./make ci ios beta",
     "ci-ios-release": "./make ci ios release",
     "ci-android-beta": "./make ci android beta",
     "ci-android-release": "./make ci android release",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "postinstall": "npx jetify && ./make postinstall"
   },
   "dependencies": {
