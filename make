@@ -13,7 +13,7 @@ case ${1} in
 	;;
 
   "versionning")
-  genversion @App/version.js -e -p ./package.json;;
+  genversion @App/version.js -e -p  ./package.json && conventional-changelog -p angular -i CHANGELOG.md -s  -r 0;;
   
   "bundle")
 	sh ./make android-bundle && sh ./make ios-bundle && sh ./make versionning
@@ -27,9 +27,15 @@ case ${1} in
   node ./scripts/sonar-scanner.js
   ;;
 
+  "install-fonts")
+  yarn add opentype.js --dev &&
+  node ./scripts/align-font-name.js &&
+  npx react-native-asset -a ./@App/Assets/Fonts
+  ;;
+
   "fix")
   case ${2} in
-    "0.59-android-resource-release-gradle")
+    "android-resource-release-gradle")
     node ./scripts/fix-android-release-gradle.js
     ;;
     "0.59-third-party-ios")
@@ -53,6 +59,7 @@ case ${1} in
   ;;
 
   "postinstall")
+  npm run fix android-resource-release-gradle
   echo "run build tool command 'postinstall'."
   ;;
 esac

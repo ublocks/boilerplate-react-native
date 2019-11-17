@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string></string>
+	<string>000000000000-2vlu0itjou6jvmchhebqivu8geqdeon3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string></string>
+	<string>com.googleusercontent.apps.000000000000-2vlu0itjou6jvmchhebqivu8geqdeon3</string>
 	<key>API_KEY</key>
-	<string></string>
+	<string>000000000000000000000000000000000000000</string>
 	<key>GCM_SENDER_ID</key>
-	<string>000000000000</string>
+	<string>00000000000</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
@@ -19,18 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>io.ublocks.boilerplate.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<false/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:000000000000:ios:0000000000000000000000</string>
+	<string>1:000000000000:ios:b2c119b3f33fb0ca172631</string>
 	<key>DATABASE_URL</key>
-	<string></string>
+	<string>https://io.ublocks.boilerplate.firebaseio.com</string>
 </dict>
 </plist>
