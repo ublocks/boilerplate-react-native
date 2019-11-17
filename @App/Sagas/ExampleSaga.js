@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects';
 import ExampleActions from 'App/Stores/Example/Actions';
-import { userService } from 'App/Services/UserService';
+import { Handler, Example } from 'App/Api';
 
 /**
  * A saga can contain multiple functions.
@@ -13,14 +13,15 @@ export function* fetchUser() {
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
   yield put(ExampleActions.fetchUserLoading());
 
-  // Fetch user informations from an API
-  const user = yield call(userService.fetchUser);
-  if (user) {
-    yield put(ExampleActions.fetchUserSuccess(user));
+  // Fetch user information from an API
+  const id = Math.floor(Math.random() / 0.1) + 1;
+  const res = yield call(Handler.get(), Example.getUsers(id));
+  if (res.data) {
+    yield put(ExampleActions.fetchUserSuccess(res.data));
   } else {
     yield put(
       ExampleActions.fetchUserFailure(
-        'There was an error while fetching user informations.',
+        'There was an error while fetching user information.',
       ),
     );
   }
