@@ -1,4 +1,4 @@
-## [0.0.2](https://github.com/iamcxa/react-native-boilerplate/compare/v1.0.0...v0.0.2) (2019-10-11)
+## [0.0.2](https://github.com/iamcxa/react-native-boilerplate/compare/v1.0.0...0.0.2) (2019-10-11)
 
 
 ### Bug Fixes
