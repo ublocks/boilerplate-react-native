@@ -26,11 +26,19 @@ const { Types, Creators } = createActions({
   onStateChange: ['currentState'],
 
   // This action triggered when the app stars or it's locale option is changed.
-  onLocaleChange: { currentLocales: null, currentTimeZone: '' },
+  onLocaleChange: {
+    currentLocales: null,
+    currentTimeZone: '',
+  },
 
   // This action triggered when the app stars, to get current app version.
-  onVersionChange: { appVersion: '', buildVersion: '', bundleIdentifier: '' },
+  onVersionChange: {
+    appVersion: '',
+    buildVersion: '',
+    bundleIdentifier: '',
+  },
 });
 
 export const AppStateTypes = Types;
+
 export default Creators;

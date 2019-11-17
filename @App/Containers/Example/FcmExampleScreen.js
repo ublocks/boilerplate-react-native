@@ -49,6 +49,7 @@ class FcmExampleScreen extends React.Component {
           throw new Error('@FCM: Notification permission not granted.');
         }
       }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       await this.onPressGetToken();
     } catch (error) {
       // User has rejected permissions

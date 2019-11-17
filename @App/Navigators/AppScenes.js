@@ -6,7 +6,7 @@ import RootScreen from 'App/Containers/Root/RootScreen';
 import ApiExampleScreen from 'App/Containers/Example/ApiExampleScreen';
 import FcmExampleScreen from 'App/Containers/Example/FcmExampleScreen';
 
-export default () => {
+export default function scenes() {
   return (
     <Stack key="root">
       <Scene key="RootScreen" component={RootScreen} hideNavBar initial />
@@ -14,4 +14,4 @@ export default () => {
       <Scene key="FcmExampleScreen" component={FcmExampleScreen} />
     </Stack>
   );
-};
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AppState, View } from 'react-native';
+import { AppState } from 'react-native';
 import * as RNLocalize from 'react-native-localize';
 import VersionNumber from 'react-native-version-number';
 
@@ -23,16 +23,6 @@ class AppMonitor extends React.Component {
     handleAppLocaleUpdate: PropTypes.func.isRequired,
     handleAppVersionUpdate: PropTypes.func.isRequired,
   };
-
-  /**
-   * Define default event states
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentState: AppState.currentState,
-    };
-  }
 
   /**
    * Register your event listeners when the app is mounted
@@ -73,10 +63,9 @@ class AppMonitor extends React.Component {
     __DEV__ && console.log('@onAppStateChange: ', nextAppState);
 
     // update appState when changes
-    this.setState({ currentState: nextAppState }, () => {
-      const { handleAppStateUpdate } = this.props;
-      handleAppStateUpdate(nextAppState);
-    });
+    // this.setState({ currentState: nextAppState });
+    const { handleAppStateUpdate } = this.props;
+    handleAppStateUpdate(nextAppState);
   };
 
   /**
@@ -100,8 +89,7 @@ class AppMonitor extends React.Component {
 
   render() {
     const { children } = this.props;
-    const { currentState } = this.state;
-    return children(currentState);
+    return children;
   }
 }
 

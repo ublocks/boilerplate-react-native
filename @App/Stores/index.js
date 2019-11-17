@@ -1,11 +1,22 @@
+/**
+ * Import Reduces, prepare to export
+ */
 import { combineReducers } from 'redux';
 import configureStore from './CreateStore';
 import rootSaga from 'App/Sagas';
-
 import { reducer as AppStateReducer } from './AppState/Reducers';
 import { reducer as AppRouteReducer } from './AppRoute/Reducers';
 import { reducer as ExampleReducer } from './Example/Reducers';
 
+/**
+ * Export reducers, easy to use
+ */
+export { default as AppStateActions } from './AppState/Actions';
+export { default as ExampleActions } from './Example/Actions';
+
+/**
+ * Export default reducers
+ */
 export default () => {
   const rootReducer = combineReducers({
     // do not modify appState/appRoute

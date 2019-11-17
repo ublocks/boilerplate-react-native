@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { LoadingIndicator } from '@ublocks-react-native/component';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 
@@ -11,6 +10,7 @@ import AppScenes from './AppScenes';
 class AppNavigator extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -20,8 +20,8 @@ class AppNavigator extends React.Component {
     };
   }
 
-  onReducerCreate = (params) => {
-    const defaultReducer = new Reducer(params);
+  onReducerCreate = (INITIAL_STATE) => {
+    const defaultReducer = new Reducer(INITIAL_STATE);
     return (state, action) => {
       this.props.dispatch(action);
       return defaultReducer(state, action);
@@ -33,26 +33,10 @@ class AppNavigator extends React.Component {
     const { scenes } = this.state;
     return (
       <AppMonitor>
-        {(appState) => (
-          <React.Fragment>
-            {scenes && (
-              <Router
-                scenes={scenes}
-                onExitApp={() => true}
-                createReducer={this.onReducerCreate}
-                sceneStyle={{
-                  flex: 1,
-                  backgroundColor: 'transparent',
-                  shadowColor: null,
-                  shadowOffset: null,
-                  shadowOpacity: null,
-                  shadowRadius: null,
-                }}
-              />
-            )}
-            <LoadingIndicator open={isLoading} />
-          </React.Fragment>
-        )}
+        <>
+          <Router scenes={scenes} createReducer={this.onReducerCreate} />
+          <LoadingIndicator open={isLoading} />
+        </>
       </AppMonitor>
     );
   }

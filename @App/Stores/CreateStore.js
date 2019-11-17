@@ -2,6 +2,7 @@ import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
+import { Platform } from 'react-native';
 import thunk from 'redux-thunk';
 
 /**

@@ -5,36 +5,24 @@
  */
 
 import { ActionConst, Actions } from 'react-native-router-flux';
+import { createReducer, Types as ReduxSauceTypes } from 'reduxsauce';
+
 import { INITIAL_STATE } from './InitialState';
 import { getRoutePrefix } from './Helpers';
 
-export const reducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case ActionConst.FOCUS:
-      return {
-        ...state,
-        ...action,
-        routeName: getRoutePrefix(action.routeName),
-        scene: {
-          sceneKey: getRoutePrefix(action.routeName),
-          drawer: 'DrawerClose',
-        },
-      };
-    case 'Navigation/NAVIGATE':
-      return {
-        ...state,
-        ...action,
-        routeName: getRoutePrefix(action.routeName),
-        scene: {
-          ...state.scene,
-        },
-      };
-    default:
-      return {
-        ...state,
-        ...action,
-        prevRoute: getRoutePrefix(Actions.prevScene),
-        routeName: getRoutePrefix(action.routeName),
-      };
-  }
-};
+export const reducer = createReducer(INITIAL_STATE, {
+  [ReduxSauceTypes.DEFAULT]: (state, action) => ({
+    ...state,
+    prevRoute: getRoutePrefix(Actions.prevScene),
+    routeName: getRoutePrefix(action.routeName),
+  }),
+  [ActionConst.FOCUS]: (state, action) => ({
+    ...state,
+    ...action,
+    routeName: getRoutePrefix(action.routeName),
+    scene: {
+      sceneKey: getRoutePrefix(action.routeName),
+      drawer: 'DrawerClose',
+    },
+  }),
+});
