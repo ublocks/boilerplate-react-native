@@ -17,6 +17,7 @@ class RootScreen extends React.Component {
   static propTypes = {
     appRoute: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
+    startup: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -48,18 +49,18 @@ class RootScreen extends React.Component {
           <Text style={styles.title}>{t('root_hello_world')}</Text>
           <Text style={styles.greeting}>{t('root_greeting')}</Text>
           <Text style={styles.text}>{t('root_description')}</Text>
-          <Text style={styles.title}>Examples</Text>
+          <Text style={styles.title}>{t('root_examples')}</Text>
           <View>
             <Button
               style={styles.button}
               onPress={this.onPressOpenApiExample}
-              title={t('btnOpenApiExample')}
+              title={t('root_btnOpenApiExample')}
             />
             <Separator />
             <Button
               style={styles.button}
               onPress={this.onPressOpenFcmExample}
-              title={t('btnOpenFcmExample')}
+              title={t('root_btnOpenFcmExample')}
             />
           </View>
         </View>

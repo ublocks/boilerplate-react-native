@@ -1,4 +1,5 @@
 import { put, call } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 import ExampleActions from 'App/Stores/Example/Actions';
 import { Handler, Example } from 'App/Api';
 
@@ -24,5 +25,23 @@ export function* fetchUser() {
         'There was an error while fetching user information.',
       ),
     );
+  }
+}
+
+export function* createPost() {
+  const res = yield call(
+    Handler.post({
+      data: {
+        title: 'foo',
+        body: 'bar',
+        userId: 1,
+      },
+    }),
+    Example.postNewPost(),
+  );
+  if (res.data) {
+    Alert.alert('Create Post Success', `Post Id: ${res.data.id}`);
+  } else {
+    Alert.alert('Create Post Failed', JSON.stringify(res));
   }
 }
