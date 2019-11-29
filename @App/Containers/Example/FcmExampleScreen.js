@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Permissions } from 'react-native-unimodules';
-import messaging from '@react-native-firebase/messaging';
+import { firebase } from '@react-native-firebase/messaging';
+import { NotificationsAndroid } from 'react-native-notifications';
 
 import Style from './FcmExampleScreenStyle';
 
@@ -34,9 +35,44 @@ class FcmExampleScreen extends React.Component {
   async componentDidMount() {
     __DEV__ && console.log('@Mount FcmExampleScreen!');
 
+    this.createNotificationListeners();
     await this.requestPermission();
-    await this.createNotificationListeners();
   }
+
+  createNotificationListeners = () => {
+    /*
+     * Triggered for data only payload in foreground
+     * */
+    this.messageListener = firebase.messaging().onMessage((message) => {
+      //process data message
+      console.log(JSON.stringify(message));
+
+      this.setState({
+        message,
+      });
+    });
+
+    // On Android, we allow for only one (global) listener per each event type.
+    NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
+      // TODO: Send the token to my server so it could send back push notifications...
+      console.log('Push-notifications registered!', deviceToken);
+    });
+    NotificationsAndroid.setNotificationReceivedListener((notification) => {
+      console.log(
+        'Notification received on device in background or foreground',
+        notification.getData(),
+      );
+    });
+    NotificationsAndroid.setNotificationReceivedInForegroundListener((notification) => {
+      console.log(
+        'Notification received on device in foreground',
+        notification.getData(),
+      );
+    });
+    NotificationsAndroid.setNotificationOpenedListener((notification) => {
+      console.log('Notification opened by device user', notification.getData());
+    });
+  };
 
   requestPermission = async () => {
     try {
@@ -49,11 +85,13 @@ class FcmExampleScreen extends React.Component {
           throw new Error('@FCM: Notification permission not granted.');
         }
       }
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       await this.onPressGetToken();
     } catch (error) {
-      // User has rejected permissions
-      __DEV__ && console.log('@FCM: permission rejected, ', error);
+      // User has rejected permissions or other issues happened
+      Alert.alert(
+        '@FCM: permission rejected',
+        `${error.message}\n\n${JSON.stringify(error, null, 2)}`,
+      );
       if (error.message.includes('MISSING_INSTANCE_SERVICE')) {
         // This error means your device has no Google Play Services.
         Alert.alert(
@@ -64,29 +102,21 @@ class FcmExampleScreen extends React.Component {
     }
   };
 
-  createNotificationListeners = async () => {
-    /*
-     * Triggered for data only payload in foreground
-     * */
-    this.messageListener = messaging().onMessage((message) => {
-      //process data message
-      __DEV__ && console.log(JSON.stringify(message));
-
-      this.setState({
-        message,
-      });
-    });
-  };
-
   onPressGetToken = async () => {
     // User has authorized
-    const token = await messaging().getToken();
+    const token = await firebase.messaging().getToken();
     this.setState({
       token,
     });
     Clipboard.setString(token);
     __DEV__ && console.log('@FCM: Token=>', token);
   };
+
+  showAlert(title, body) {
+    Alert.alert(title, body, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], {
+      cancelable: false,
+    });
+  }
 
   render() {
     const { message, token, permission } = this.state;

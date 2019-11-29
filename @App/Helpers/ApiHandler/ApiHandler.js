@@ -28,7 +28,7 @@ function getInstance({ Authorization, url, options, data }) {
   return axios.create({
     baseURL: options.baseURL || Config.API_BASE_URL,
 
-    timeout: options.timeout || Config.TIMEOUT,
+    timeout: options.timeout || Config.API_TIMEOUT || 15 * 1000,
 
     headers: {
       // Default accept header set to json
@@ -71,9 +71,11 @@ const ApiHandler = (
       url,
     });
 
-    const res = await instance[method](url);
+    console.time('__API__');
+    const res = await instance[method](url, data);
+    console.timeEnd('__API__');
 
-    console.log('- Response=>', res);
+    // console.log('- Response=>', res);
 
     if (typeof successHandler === 'function') {
       await successHandler(res);

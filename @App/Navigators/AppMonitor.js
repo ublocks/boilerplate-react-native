@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { AppState } from 'react-native';
 import * as RNLocalize from 'react-native-localize';
 import VersionNumber from 'react-native-version-number';
+import Orientation from 'react-native-orientation-locker';
 
 import { setI18nConfig } from 'App/Helpers/I18n';
 import AppStateActions from 'App/Stores/AppState/Actions';
@@ -41,6 +42,9 @@ class AppMonitor extends React.Component {
 
     // Locale change event listener
     RNLocalize.addEventListener(EVENTS.CHANGE, this.onLocalizationChange);
+
+    // Orientation change event listener
+    Orientation.addOrientationListener(this.onOrientationChange);
   }
 
   /**
@@ -51,8 +55,24 @@ class AppMonitor extends React.Component {
     AppState.removeEventListener(EVENTS.CHANGE, this.onAppStateChange);
 
     // Locale change event listener
-    RNLocalize.addEventListener(EVENTS.CHANGE, this.onLocalizationChange);
+    RNLocalize.removeEventListener(EVENTS.CHANGE, this.onLocalizationChange);
+
+    // Orientation change event listener
+    Orientation.removeOrientationListener(this.onOrientationChange);
   }
+
+  /**
+   * Handle app orientation changes
+   * @see https://github.com/wonday/react-native-orientation-locker
+   * @memberof AppMonitor
+   */
+  onOrientationChange = (orientation) => {
+    __DEV__ && console.log('@onAppOrientationChange: ', orientation);
+
+    // update appState when changes
+    const { handleAppOrientationUpdate } = this.props;
+    handleAppOrientationUpdate(orientation);
+  };
 
   /**
    * Handle app state changes
@@ -101,6 +121,7 @@ export default connect(
         handleAppStateUpdate: AppStateActions.onStateChange,
         handleAppLocaleUpdate: AppStateActions.onLocaleChange,
         handleAppVersionUpdate: AppStateActions.onVersionChange,
+        handleAppOrientationUpdate: AppStateActions.onOrientationChange,
       },
       dispatch,
     ),

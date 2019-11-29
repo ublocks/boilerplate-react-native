@@ -1,3 +1,4 @@
+import 'react-native-console-time-polyfill';
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
@@ -16,7 +17,9 @@ import createStore from 'App/Stores';
 import SplashScreen from 'App/Containers/Splash/SplashScreen';
 import AppNavigator from 'App/Navigators/AppNavigator';
 
-export const { store, persistor } = createStore();
+const reduxStore = createStore();
+
+export const { store, persistor } = reduxStore;
 
 export default class App extends Component {
   constructor(props) {

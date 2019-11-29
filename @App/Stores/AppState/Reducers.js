@@ -36,4 +36,8 @@ export const reducer = createReducer(INITIAL_STATE, {
     currentLocales,
     currentTimeZone,
   }),
+  [AppStateTypes.ON_ORIENTATION_CHANGE]: (state, { currentOrientation }) => ({
+    ...state,
+    currentOrientation,
+  }),
 });

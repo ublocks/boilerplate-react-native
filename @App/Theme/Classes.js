@@ -150,4 +150,7 @@ export default StyleSheet.create({
   fullHeight: {
     height: '100%',
   },
+  absolute: {
+    position: 'absolute',
+  },
 });
