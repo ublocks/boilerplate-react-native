@@ -12,6 +12,10 @@ import { AppConfigTypes } from './Actions';
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
 export const reducer = createReducer(INITIAL_STATE, {
+  [AppConfigTypes.UPDATE_APP_CONFIG_STORE]: (state, action) => ({
+    ...state,
+    ...action.data,
+  }),
   [AppConfigTypes.ON_USER_LOCALE_CHANGE]: (state, action) => ({
     ...state,
     customLocale: action.locale,

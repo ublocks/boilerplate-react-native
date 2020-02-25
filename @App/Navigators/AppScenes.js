@@ -6,7 +6,7 @@ import RootScreen from 'App/Containers/Root/RootScreen';
 import ApiExampleScreen from 'App/Containers/Example/ApiExampleScreen';
 import FcmExampleScreen from 'App/Containers/Example/FcmExampleScreen';
 
-export default function scenes() {
+export default function AppScenes() {
   return (
     <Stack key="root">
       <Scene key="RootScreen" component={RootScreen} hideNavBar initial />

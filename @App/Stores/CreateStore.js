@@ -5,6 +5,8 @@ import createSagaMiddleware from 'redux-saga';
 import { Platform } from 'react-native';
 import thunk from 'redux-thunk';
 
+import createMigrations from './CreateMigrations';
+
 /**
  * This import defaults to localStorage for web and AsyncStorage for react-native.
  *
@@ -26,6 +28,8 @@ const storage = createSensitiveStorage({
 const persistConfig = {
   key: 'root',
   storage: storage,
+  version: 0,
+  migrate: createMigrations,
   /**
    * Blacklist state that we do not need/want to persist
    */
@@ -53,8 +57,10 @@ export default (rootReducer, rootSaga) => {
   if (__DEV__) {
     // Use it if Remote debugging with RNDebugger, otherwise use remote-redux-devtools
     // eslint-disable-next-line no-underscore-dangle
-    composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
-      require('remote-redux-devtools').composeWithDevTools)({
+    composeEnhancers = (
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
+      require('remote-redux-devtools').composeWithDevTools
+    )({
       name: Platform.OS,
     });
   }

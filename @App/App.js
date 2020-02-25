@@ -1,4 +1,6 @@
+// install to support react-native console time calculate
 import 'react-native-console-time-polyfill';
+
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';

@@ -12,6 +12,7 @@ import { reducer as ExampleReducer } from './Example/Reducers';
 /**
  * Export reducers, easy to use
  */
+export { default as AppAlertActions } from './AppAlert/Actions';
 export { default as AppConfigActions } from './AppConfig/Actions';
 export { default as AppStateActions } from './AppState/Actions';
 export { default as ExampleActions } from './Example/Actions';

@@ -19,6 +19,9 @@ import { createActions } from 'reduxsauce';
  * @see https://github.com/infinitered/reduxsauce#createactions
  */
 const { Types, Creators } = createActions({
+  // update whole store
+  updateAppConfigStore: ['data'],
+
   onUserLocaleChange: ['locale'],
 });
 

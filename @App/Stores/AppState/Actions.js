@@ -20,7 +20,7 @@ import { createActions } from 'reduxsauce';
  */
 const { Types, Creators } = createActions({
   // This action triggered when the app requires user to wait.
-  onLoading: ['isLoading'],
+  onLoading: ['isLoading', 'message', 'options'],
 
   // This action triggered when the app go to foreground or background.
   onStateChange: ['currentState'],
@@ -40,6 +40,12 @@ const { Types, Creators } = createActions({
     buildVersion: '',
     bundleIdentifier: '',
   },
+
+  // This action triggered when the phone network status changes.
+  onNetInfoChange: ['state'],
+
+  // This action triggered when the system's default alert is called
+  onSystemAlertShow: ['status'],
 });
 
 export const AppStateTypes = Types;

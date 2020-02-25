@@ -91,7 +91,4 @@ const mapDispatchToProps = (dispatch) => ({
   createPost: () => dispatch(ExampleActions.createPost()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ApiExampleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ApiExampleScreen);
