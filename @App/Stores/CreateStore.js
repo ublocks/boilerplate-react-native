@@ -1,8 +1,10 @@
-import createSensitiveStorage from 'redux-persist-sensitive-storage';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
-import createSagaMiddleware from 'redux-saga';
 import { Platform } from 'react-native';
+
+import createSensitiveStorage from 'redux-persist-sensitive-storage';
+import storage from 'redux-persist/lib/storage';
+import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
 import createMigrations from './CreateMigrations';
@@ -16,18 +18,17 @@ import createMigrations from './CreateMigrations';
  * If you need to store sensitive information, use redux-persist-sensitive-storage.
  * @see https://github.com/CodingZeal/redux-persist-sensitive-storage
  */
-// Uncomment to use non-sensitive persist storage.
-// import storage from 'redux-persist/lib/storage';
 
 // Using sensitive persist storage.
-const storage = createSensitiveStorage({
+const sensitiveStorage = createSensitiveStorage({
   keychainService: 'myKeychain',
   sharedPreferencesName: 'mySharedPrefs',
 });
 
 const persistConfig = {
   key: 'root',
-  storage: storage,
+  // Remove "storage" to use sensitive persist storage.
+  storage: storage || sensitiveStorage,
   version: 0,
   migrate: createMigrations,
   /**
