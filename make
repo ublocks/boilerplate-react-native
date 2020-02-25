@@ -98,6 +98,6 @@ case ${1} in
 
   "postinstall")
   echo "[!]MAKE: run build tool command 'postinstall'."
-  sh ./make fix websocket-ssl && sh ./make fix android-resource-release-gradle && npx jetify 
+  sh ./make fix websocket-ssl && sh ./make fix android-resource-release-gradle
   ;;
 esac
