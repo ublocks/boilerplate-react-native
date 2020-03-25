@@ -14,7 +14,6 @@ export function* fetchUser() {
   try {
     // Dispatch a redux action using `put()`
     // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
-    yield put(ExampleActions.fetchUserLoading());
 
     // Fetch user information from an API
     const id = Math.floor(Math.random() / 0.1) + 1;
