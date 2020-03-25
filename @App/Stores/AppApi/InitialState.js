@@ -2,10 +2,10 @@
  * The initial values for the redux state.
  */
 export const INITIAL_STATE = {
-  host: '',
   url: '',
-  param: '',
-  body: '',
-  option: '',
-  result: {},
+  method: '',
+  options: {},
+  result: null,
+  error: null,
+  isFetching: false,
 };

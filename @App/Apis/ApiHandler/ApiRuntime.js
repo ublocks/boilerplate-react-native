@@ -1,15 +1,13 @@
 import axios from 'axios';
-import { Alert } from 'react-native';
 import { isEmpty } from 'lodash';
+import { Alert } from 'react-native';
 
 import { Config } from 'App/Config';
-import { UserActions, AppStore } from 'App/Stores';
+import { AppStore, AppApiActions, UserActions } from 'App/Stores';
 import { DefaultErrorHandler, DefaultSuccessHandler } from './DefaultHandler';
 
-const Runtime = async ({
-  url,
-  method,
-  options: {
+const Runtime = async ({ url, method, options = {} }) => {
+  let {
     params = {}, // query params
     data = undefined, // body data
     Authorization = '',
@@ -19,9 +17,8 @@ const Runtime = async ({
     isDefaultHandlerEnable = true,
     acceptLanguage = undefined,
     header = {},
-    ...options
-  } = {},
-}) => {
+    ...config
+  } = options;
   try {
     // Get current app locale status
     if (!acceptLanguage) {
@@ -30,13 +27,17 @@ const Runtime = async ({
         acceptLanguage = appLocales.map((e) => e.languageTag).toString();
       }
     }
+
+    // dispatch api action to saga
+    __DEV__ && AppStore.dispatch(AppApiActions.onApiFetching(url, method, options));
+
     // Create an axios instance
     const instance = axios.create({
-      ...options,
+      ...config,
 
-      baseURL: options.baseURL || Config.API_BASE_URL,
+      baseURL: config.baseURL || Config.API_BASE_URL,
 
-      timeout: options.timeout || Config.API_TIMEOUT || 15 * 1000,
+      timeout: config.timeout || Config.API_TIMEOUT || 15 * 1000,
 
       headers: {
         // Default accept header set to json
@@ -55,6 +56,7 @@ const Runtime = async ({
     console.log('header=>', header);
     console.log('data=>', data);
 
+    // Ensure there's no undefined
     if (url && (url.includes('undefined') || url.includes('null'))) {
       const message = `API Url contains "null" or "undefined". Check input API Url: "${url}".`;
       __DEV__ && console.log(message);
@@ -65,8 +67,6 @@ const Runtime = async ({
       ? await instance[method](url, data, { params })
       : await instance[method](url, { params, data });
 
-    // console.log('@ApiHandler res=>', res);
-
     // Auto refresh token
     if (res.headers && !isEmpty(res.headers.authorization)) {
       AppStore.dispatch(UserActions.onUserRefreshToken(res.headers.authorization));
@@ -76,6 +76,9 @@ const Runtime = async ({
       await successHandler(res);
     }
     await DefaultSuccessHandler(res);
+
+    // dispatch api action to saga
+    __DEV__ && AppStore.dispatch(AppApiActions.onApiFetchSuccess(res));
     return res;
   } catch (err) {
     // if error has normal response, use default handling
@@ -90,6 +93,10 @@ const Runtime = async ({
     if (isDefaultHandlerEnable) {
       await DefaultErrorHandler(errorObject);
     }
+
+    // dispatch api action to saga
+    __DEV__ && AppStore.dispatch(AppApiActions.onApiFetchFailure(errorObject));
+
     // throw error in the end
     throw errorObject;
   } finally {

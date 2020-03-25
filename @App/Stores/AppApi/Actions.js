@@ -20,10 +20,10 @@ import { createActions } from 'reduxsauce';
  */
 const { Types, Creators } = createActions({
   // This action triggered when the app requires user to wait.
-  onApiFetching: ['data'],
+  onApiFetching: ['method', 'url', 'options'],
 
-  onApiFetchSuccess: ['isLoading', 'message', 'options'],
-  onApiFetchFailure: ['isLoading', 'message', 'options'],
+  onApiFetchSuccess: ['data'],
+  onApiFetchFailure: ['error'],
 });
 
 export const AppApiTypes = Types;
