@@ -30,11 +30,6 @@ export default ScaledSheet.create({
     textAlign: 'center',
     marginBottom: 5,
   },
-  result: {
-    ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
-  },
   error: {
     ...Fonts.style.normal,
     textAlign: 'center',

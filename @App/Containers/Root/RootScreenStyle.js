@@ -1,47 +1,51 @@
 import { StyleSheet } from 'react-native';
-import Colors from 'App/Theme/Colors';
-import Styles from 'App/Theme/Styles';
-import Fonts from 'App/Theme/Fonts';
+import { ScaledSheet } from 'App/Helpers';
+import { Classes, Colors, Styles, Fonts } from 'App/Theme';
 
-export default StyleSheet.create({
+export default ScaledSheet.create({
   container: {
+    ...Styles.screen.container,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  navBar: {
+    ...Classes.mainStart,
+    ...Classes.crossStart,
+    flex: 0.1,
+  },
+  bodyWrapper: {
     ...Styles.screen.container,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 0.9,
+    marginLeft: '10@s',
   },
   title: {
     ...Fonts.style.h2,
-    textAlign: 'center',
-    marginBottom: 5,
+    marginVertical: '15@vs',
     color: Colors.text,
   },
   greeting: {
     ...Fonts.style.h4,
-    textAlign: 'center',
-    marginBottom: 15,
+    marginBottom: '15@vs',
     color: Colors.primary,
   },
   description: {
     ...Fonts.style.normal,
-    textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: '5@s',
     color: Colors.text,
     fontStyle: 'italic',
   },
   text: {
     ...Fonts.style.normal,
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: '5@s',
     color: Colors.text,
   },
-  btnContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-  },
   separator: {
-    marginVertical: 8,
+    marginVertical: '10@s',
     borderStyle: 'solid',
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,

@@ -19,14 +19,17 @@ import { createActions } from 'reduxsauce';
  * @see https://github.com/infinitered/reduxsauce#createactions
  */
 const { Types, Creators } = createActions({
-  // Fetch user informations
+  // Fetch user information
   fetchUser: null,
   // The operation has started and is loading
   fetchUserLoading: null,
-  // User informations were successfully fetched
+  // User information were successfully fetched
   fetchUserSuccess: ['user'],
   // An error occurred
   fetchUserFailure: ['errorMessage'],
+
+  // Fetch user information
+  createPost: null,
 });
 
 export const ExampleTypes = Types;

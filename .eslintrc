@@ -19,7 +19,7 @@
     "node": true
   },
   "extends": [
-    "standard",
+    "@react-native-community",
     "plugin:react/recommended",
     "plugin:react-native/all",
     "plugin:prettier/recommended"

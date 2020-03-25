@@ -8,8 +8,10 @@
 export default {
   transparent: 'rgba(0,0,0,0)',
   //Example colors:
+  shadow: 'rgba(52,52,52,0.5)',
   text: '#212529',
   primary: '#007bff',
   success: '#28a745',
   error: '#dc3545',
+  white: '#fff',
 };

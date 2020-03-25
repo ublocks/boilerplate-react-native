@@ -9,7 +9,7 @@ export const translate = memoize(
   (key, config) => (config ? key + JSON.stringify(config) : key),
 );
 
-export const setI18nConfig = () => {
+export const setI18nConfig = (customLocale) => {
   // fallback if no available language fits
   const fallback = { languageTag: 'en', isRTL: false };
 
@@ -22,6 +22,14 @@ export const setI18nConfig = () => {
   I18nManager.forceRTL(isRTL);
 
   // set i18n-js config
-  i18n.translations = { [languageTag]: Locales[languageTag]() };
-  i18n.locale = languageTag;
+  const isCustomLocalValid = customLocale && Object.keys(Locales).includes(customLocale);
+  const targetLocale = isCustomLocalValid ? customLocale : languageTag;
+
+  i18n.translations = { [targetLocale]: Locales[targetLocale]() };
+  i18n.locale = targetLocale;
+};
+
+export default {
+  setI18nConfig,
+  translate,
 };

@@ -6,7 +6,7 @@ const size = {
   h3: Screen.scale(30),
   h4: Screen.scale(26),
   input: Screen.scale(18),
-  regular: Screen.scale(17),
+  regular: Screen.scale(16),
   medium: Screen.scale(14),
   small: Screen.scale(12),
 };
@@ -24,9 +24,19 @@ const style = {
   h4: {
     fontSize: size.h4,
   },
-  normal: {
+  regular: {
     fontSize: size.regular,
+    fontWeight: '500',
   },
+  medium: {
+    fontSize: size.medium,
+  },
+  small: {
+    fontSize: size.small,
+  },
+  bold: { fontWeight: 'bold' },
+  italic: { fontStyle: 'italic' },
+  underline: { textDecorationLine: 'underline' },
 };
 
 export default {
