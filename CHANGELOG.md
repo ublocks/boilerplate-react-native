@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/iamcxa/react-native-boilerplate/compare/v1.1.1...v1.1.2) (2020-03-25)
+
+
+### Features
+
+* disable fcm when running at emulator ([935e4f7](https://github.com/iamcxa/react-native-boilerplate/commit/935e4f7b7be97ea371a2cfe4f6a43b53b3a7e945))
+* implement AppApiAction ([4ec10ca](https://github.com/iamcxa/react-native-boilerplate/commit/4ec10ca1f6cde1c1519dc9d9a4fc489c4a147a4b))
+
 ### [1.1.1](https://github.com/iamcxa/react-native-boilerplate/compare/v1.0.0...v1.1.1) (2020-03-25)
 
 

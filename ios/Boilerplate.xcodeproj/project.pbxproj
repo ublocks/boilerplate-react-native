@@ -740,7 +740,7 @@
 				CODE_SIGN_ENTITLEMENTS = Boilerplate/Boilerplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = TWVFHTEDSF;
 				HEADER_SEARCH_PATHS = (
@@ -774,7 +774,7 @@
 				CODE_SIGN_ENTITLEMENTS = Boilerplate/Boilerplate.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TWVFHTEDSF;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
