@@ -19,32 +19,13 @@ import { createActions } from 'reduxsauce';
  * @see https://github.com/infinitered/reduxsauce#createactions
  */
 const { Types, Creators } = createActions({
-  // This action triggered when the app requires user to wait.
-  onLoading: ['isLoading'],
+  updateAlertStore: ['data'],
 
-  // This action triggered when the app go to foreground or background.
-  onStateChange: ['currentState'],
+  onAlert: ['data'],
+  showAlert: ['data'],
 
-  // This action triggered when the app stars or it's locale option is changed.
-  onLocaleChange: {
-    currentLocales: null,
-    currentTimeZone: '',
-  },
-
-  // This action triggered when the app orientation changes.
-  onOrientationChange: ['currentOrientation'],
-
-  // This action triggered when the phone network status changes.
-  onNetInfoChange: ['state'],
-
-  // This action triggered when the app stars, to get current app version.
-  onVersionChange: {
-    appVersion: '',
-    buildVersion: '',
-    bundleIdentifier: '',
-  },
+  cleanAlertHistory: null,
 });
 
-export const AppStateTypes = Types;
-
+export const AlertTypes = Types;
 export default Creators;

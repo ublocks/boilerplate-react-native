@@ -28,7 +28,11 @@ build/
 .gradle
 local.properties
 *.iml
-android/app/release/app-release.apk
+android/app/release/
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/res/drawable-*
+android/app/src/main/res/raw/*
+android/app/src/main/assets/
 
 # node.js
 #
@@ -84,3 +88,7 @@ web-build/
 web-report/
 android/app/src/main/assets/index.android.bundle
 ios/main.jsbundle
+
+# FCM
+android/app/google-services.json
+ios/GoogleService-Info.plist

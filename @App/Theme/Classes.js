@@ -1,23 +1,30 @@
 import { StyleSheet } from 'react-native';
+import Colors from './Colors';
+import Metrics from './Metrics';
 
 export default StyleSheet.create({
-  fill: {
-    flex: 1,
+  absolute: {
+    position: 'absolute',
+  },
+  backgroundReset: {
+    backgroundColor: Colors.transparent,
   },
   center: {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  fillCenter: {
-    flex: 1,
+  colCenter: {
     alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
-  row: {
-    flexDirection: 'row',
+  colCross: {
+    alignItems: 'center',
+    flexDirection: 'column',
   },
-  rowReverse: {
-    flexDirection: 'row-reverse',
+  colMain: {
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   column: {
     flexDirection: 'column',
@@ -25,97 +32,34 @@ export default StyleSheet.create({
   columnReverse: {
     flexDirection: 'column-reverse',
   },
-  mainStart: {
-    justifyContent: 'flex-start',
-  },
-  mainCenter: {
-    justifyContent: 'center',
-  },
-  mainEnd: {
-    justifyContent: 'flex-end',
-  },
-  mainSpaceBetween: {
-    justifyContent: 'space-between',
-  },
-  mainSpaceAround: {
-    justifyContent: 'space-around',
-  },
-  crossStart: {
-    alignItems: 'flex-start',
-  },
   crossCenter: {
     alignItems: 'center',
   },
   crossEnd: {
     alignItems: 'flex-end',
   },
+  crossStart: {
+    alignItems: 'flex-start',
+  },
   crossStretch: {
     alignItems: 'stretch',
   },
-  selfStretch: {
-    alignSelf: 'stretch',
-  },
-  rowMain: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  rowCross: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rowCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  colMain: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  colCross: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  colCenter: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  fillRow: {
+  fill: {
     flex: 1,
-    flexDirection: 'row',
   },
-  fillRowReverse: {
-    flex: 1,
-    flexDirection: 'row-reverse',
-  },
-  fillRowMain: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  fillRowCross: {
-    flex: 1,
-    flexDirection: 'row',
+  fillCenter: {
     alignItems: 'center',
-  },
-  fillRowCenter: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   fillCol: {
     flex: 1,
     flexDirection: 'column',
   },
-  fillColReverse: {
-    flex: 1,
-    flexDirection: 'column-reverse',
-  },
-  fillColMain: {
+  fillColCenter: {
     flex: 1,
     flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   fillColCross: {
@@ -123,11 +67,93 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  fillColCenter: {
+  fillColMain: {
     flex: 1,
     flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  fillColReverse: {
+    flex: 1,
+    flexDirection: 'column-reverse',
+  },
+  fillRow: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  fillRowCenter: {
+    flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  fillRowCross: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  fillRowMain: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  fillRowReverse: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+  },
+  fullHeight: {
+    height: '100%',
+  },
+  fullWidth: {
+    width: '100%',
+  },
+  mainCenter: {
+    justifyContent: 'center',
+  },
+  mainEnd: {
+    justifyContent: 'flex-end',
+  },
+  mainSpaceAround: {
+    justifyContent: 'space-around',
+  },
+  mainSpaceBetween: {
+    justifyContent: 'space-between',
+  },
+  mainStart: {
+    justifyContent: 'flex-start',
+  },
+  marginBottom: {
+    marginBottom: Metrics.baseMargin,
+  },
+  marginLeft: {
+    marginLeft: Metrics.baseMargin,
+  },
+  marginRight: {
+    marginRight: Metrics.baseMargin,
+  },
+  marginTop: {
+    marginTop: Metrics.baseMargin,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  rowCenter: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  rowCross: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  rowMain: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  rowReverse: {
+    flexDirection: 'row-reverse',
+  },
+  selfStretch: {
+    alignSelf: 'stretch',
   },
   textCenter: {
     textAlign: 'center',
@@ -140,17 +166,5 @@ export default StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
-  },
-  backgroundReset: {
-    backgroundColor: 'transparent',
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  fullHeight: {
-    height: '100%',
-  },
-  absolute: {
-    position: 'absolute',
   },
 });

@@ -1,35 +1,42 @@
 {
   "project_info": {
-    "project_number": "698554149545",
-    "firebase_url": "https://react-native-boilerplate-12827.firebaseio.com",
-    "project_id": "react-native-boilerplate-12827",
-    "storage_bucket": "react-native-boilerplate-12827.appspot.com"
+    "project_number": "",
+    "firebase_url": "",
+    "project_id": "",
+    "storage_bucket": ""
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:698554149545:android:992cfbe4da857db2e4d7b8",
+        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
         "android_client_info": {
           "package_name": "io.ublocks.boilerplate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "698554149545-ntlpfastdg1rmnqo0m6e0dq8925ke5pm.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyACZPRUMoqNRmxKQ9lX715SjL1YKBSQHbo"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "698554149545-ntlpfastdg1rmnqo0m6e0dq8925ke5pm.apps.googleusercontent.com",
+              "client_id": "",
               "client_type": 3
+            },
+            {
+              "client_id": "",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.ublocks.boilerplate"
+              }
             }
           ]
         }

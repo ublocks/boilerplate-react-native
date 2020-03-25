@@ -1,6 +1,14 @@
 export default {
   language: 'en',
 
+  // Default API response status wording
+  _alert_api_default_success_title: 'API Request Success',
+  _alert_api_default_success_desc: 'The action is completed successfully.',
+  _alert_api_default_failure_title: 'API Request Failure',
+  _alert_api_default_failure_desc: 'The action is failure due to %{message}.',
+  _alert_api_default_warring_title: 'API Request Warring',
+  _alert_api_default_warring_desc: 'The action is failure due to %{message}.',
+
   // Strings for RootScreen, starting with 'root_'.
   root_hello_world: 'Hello World!',
   root_right: 'Right',

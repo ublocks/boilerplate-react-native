@@ -1,44 +1,20 @@
 language: node_js
+
 node_js:
-    - "8.10.0"
-# Travis-CI Caching
+    - "10.19.0"
+
+before_install: # if "install" is overridden
+  # Repo for Yarn
+  - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -qq yarn=1.17.3-1
+
 cache:
+  yarn: true
   directories:
     - node_modules
-# env
-# sudo: enabled
-# addons:
-#   apt:
-#     sources:
-#       - mysql-5.7-trusty
-#     packages:
-#       - mysql-server
-#       - mysql-client
-# before_install:
-#   - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
-#   - sudo mysql_upgrade
-#   - sudo service mysql restart
-#   - chmod +x ./scripts/*
-#   - ./scripts/travis-mysql-5.7.sh
-# script:
-#   - touch config/local.js
-#   - npm run build
-#   - npm run test-travis
 
-
-#   image: node:8.10.0
-
-# cache:
-#   paths:
-#     - node_modules
-
-# before_script:
-#   - yarn
-
-# prettier:
-#   script:
-#     - npm run prettier-check
-
-# eslint:
-#   script:
-#     - npm run lint-check
+script:
+  - yarn run prettier-check
+  - yarn run lint-check

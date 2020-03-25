@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import firebase from 'react-native-firebase';
 import {
   Clipboard,
   ScrollView,
@@ -11,10 +13,9 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Permissions } from 'react-native-unimodules';
-import { firebase } from '@react-native-firebase/messaging';
-import { NotificationsAndroid } from 'react-native-notifications';
 
-import Style from './FcmExampleScreenStyle';
+import { getCircularReplacer } from 'App/Helpers';
+import style from './FcmExampleScreenStyle';
 
 /**
  * This is an example of how to interact with FCM(Firebase Cloud Messaging).
@@ -25,8 +26,17 @@ import Style from './FcmExampleScreenStyle';
  */
 
 class FcmExampleScreen extends React.Component {
+  static propTypes = {
+    isEmulator: PropTypes.bool.isRequired,
+  };
+
+  channelId = 'test-channel';
+
+  channelName = 'Test channel';
+
   state = {
     permission: null,
+    state: '',
     message: '',
     token: 'no token yet',
   };
@@ -35,46 +45,68 @@ class FcmExampleScreen extends React.Component {
   async componentDidMount() {
     __DEV__ && console.log('@Mount FcmExampleScreen!');
 
-    this.createNotificationListeners();
-    await this.requestPermission();
+    const { isEmulator } = this.props;
+
+    if (isEmulator && Platform.OS === 'ios') {
+      Alert.alert('Oops!', `You're running at emulator! so FCM will be disabled.`);
+    } else {
+      this.handleNotificationChannel();
+      this.handleNotificationListeners();
+      await this.handleRequestPermission();
+    }
   }
 
-  createNotificationListeners = () => {
+  handleNotificationChannel = () => {
+    // Build a channel
+    const channel = new firebase.notifications.Android.Channel(
+      this.channelId,
+      this.channelName,
+      firebase.notifications.Android.Importance.Max,
+    ).setDescription('My apps test channel');
+
+    // Create the channel
+    firebase.notifications().android.createChannel(channel);
+  };
+
+  handleNotificationListeners = async () => {
     /*
      * Triggered for data only payload in foreground
      * */
-    this.messageListener = firebase.messaging().onMessage((message) => {
-      //process data message
-      console.log(JSON.stringify(message));
+    this.messageListener = firebase.messaging().onMessage(this.onMessageReceiveListener);
 
-      this.setState({
-        message,
-      });
-    });
+    /*
+     * Triggered when a particular notification has been received in foreground
+     * */
+    this.notificationListener = firebase
+      .notifications()
+      .onNotification(this.onMessageReceiveListener);
 
-    // On Android, we allow for only one (global) listener per each event type.
-    NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
-      // TODO: Send the token to my server so it could send back push notifications...
-      console.log('Push-notifications registered!', deviceToken);
-    });
-    NotificationsAndroid.setNotificationReceivedListener((notification) => {
-      console.log(
-        'Notification received on device in background or foreground',
-        notification.getData(),
+    /*
+     * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+     * */
+    this.notificationOpenedListener = firebase
+      .notifications()
+      .onNotificationOpened((notificationOpen) =>
+        this.onMessageReceiveListener(notificationOpen.notification),
       );
-    });
-    NotificationsAndroid.setNotificationReceivedInForegroundListener((notification) => {
-      console.log(
-        'Notification received on device in foreground',
-        notification.getData(),
-      );
-    });
-    NotificationsAndroid.setNotificationOpenedListener((notification) => {
-      console.log('Notification opened by device user', notification.getData());
-    });
+
+    /*
+     * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+     * */
+    const notificationOpen = await firebase.notifications().getInitialNotification();
+    if (notificationOpen) {
+      // const action = notificationOpen.action;
+      // console.log('action=>', action);
+      // body and title lost if accessed this way, taking info from data object where info will persist
+      const notification = notificationOpen.notification;
+      console.log('Initial ', notification);
+      // Alert.alert(notification.data.title, notification.data.body);
+
+      this.onMessageReceiveListener(notification);
+    }
   };
 
-  requestPermission = async () => {
+  handleRequestPermission = async () => {
     try {
       if (Platform.OS === 'ios') {
         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -102,6 +134,40 @@ class FcmExampleScreen extends React.Component {
     }
   };
 
+  onMessageReceiveListener = (message) => {
+    console.log('onMessageReceiveListener=>', message);
+    console.log('onMessageReceiveListener _data=>', message._data);
+    console.log('onMessageReceiveListener _data.default=>', message._data.default);
+    console.log(typeof message._data.default);
+
+    this.setState({
+      message,
+    });
+    if (typeof message._data.default === 'string') {
+      const { title, body } = JSON.parse(message._data.default);
+
+      // const notification = new firebase.notifications.Notification({
+      //   show_in_foreground: true,
+      // })
+      //   .setNotificationId(message._messageId)
+      //   .setTitle(`${title}`)
+      //   .setBody(`${body}`);
+
+      // if (Platform.OS === 'android') {
+      //   notification.android
+      //     .setAutoCancel(true)
+      //     .android.setChannelId(this.channelId)
+      //     .android.setPriority(firebase.notifications.Android.Priority.High)
+      //     .android.setVibrate(500);
+      // }
+
+      // firebase
+      //   .notifications()
+      //   .displayNotification(notification)
+      //   .catch((err) => Alert.alert(err.message, JSON.stringify(err, null, 2)));
+    }
+  };
+
   onPressGetToken = async () => {
     // User has authorized
     const token = await firebase.messaging().getToken();
@@ -112,41 +178,37 @@ class FcmExampleScreen extends React.Component {
     __DEV__ && console.log('@FCM: Token=>', token);
   };
 
-  showAlert(title, body) {
-    Alert.alert(title, body, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], {
-      cancelable: false,
-    });
-  }
-
   render() {
     const { message, token, permission } = this.state;
     return (
-      <View style={Style.container}>
+      <View style={style.container}>
         <ScrollView>
           <Image
-            style={Style.image}
+            style={style.image}
             source={{
               uri: 'https://i.ytimg.com/vi/sioEY4tWmLI/maxresdefault.jpg',
             }}
             resizeMode={'contain'}
           />
-          <Text style={Style.title}>FCM Example</Text>
-          <Text style={Style.content}>
+          <Text style={style.title}>FCM Example</Text>
+          <Text style={style.content}>
             This example will shows push notifications message when it arrives.
           </Text>
 
           {Platform.OS === 'ios' && (
             <>
-              <Text style={Style.title}>Permission Status</Text>
-              <Text style={Style.content}>{JSON.stringify(permission)}</Text>
+              <Text style={style.title}>Permission Status</Text>
+              <Text style={style.content}>{JSON.stringify(permission)}</Text>
             </>
           )}
 
-          <Text style={Style.title}>Device Token</Text>
-          <Text style={Style.content}>{token}</Text>
+          <Text style={style.title}>Device Token</Text>
+          <Text style={style.content}>{token}</Text>
 
-          <Text style={Style.title}>Receive Message</Text>
-          <Text style={Style.message}>{JSON.stringify(message)}</Text>
+          <Text style={style.title}>Receive Message</Text>
+          <Text style={style.message}>
+            {JSON.stringify(message, getCircularReplacer(), 2)}
+          </Text>
 
           <Button onPress={this.onPressGetToken} title="Copy FCM Token" />
         </ScrollView>
@@ -158,6 +220,8 @@ class FcmExampleScreen extends React.Component {
 FcmExampleScreen.propTypes = {};
 
 export default connect(
-  (state) => ({}),
+  (state) => ({
+    isEmulator: state.appState.currentDevice.isEmulator,
+  }),
   (dispatch) => ({}),
 )(FcmExampleScreen);

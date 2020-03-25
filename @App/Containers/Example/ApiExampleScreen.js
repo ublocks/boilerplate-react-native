@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native';
 import { connect } from 'react-redux';
-import ExampleActions from 'App/Stores/Example/Actions';
-import { liveInEurope } from 'App/Stores/Example/Selectors';
-import Style from './ApiExampleScreenStyle';
-import { Classes, Images, Fonts } from 'App/Theme';
+import { ExampleActions, ExampleSelectors } from 'App/Stores';
+import { Classes, Images, Colors, Fonts } from 'App/Theme';
 import { translate as t } from 'App/Helpers/I18n';
+
+import Style from './ApiExampleScreenStyle';
 
 /**
  * This is an example of a container component.
  *
- * This screen displays a little help message and informations about a fake user.
+ * This screen displays a little help message and information about a fake user.
  * Feel free to remove it.
  */
 
@@ -36,7 +36,7 @@ class ApiExampleScreen extends React.Component {
     return (
       <View style={Style.container}>
         {this.props.userIsLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color={Colors.primary} />
         ) : (
           <View>
             <View style={Style.logoContainer}>
@@ -83,7 +83,7 @@ const mapStateToProps = (state) => ({
   user: state.example.user,
   userIsLoading: state.example.userIsLoading,
   userErrorMessage: state.example.userErrorMessage,
-  liveInEurope: liveInEurope(state),
+  liveInEurope: ExampleSelectors.liveInEurope(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,7 +91,4 @@ const mapDispatchToProps = (dispatch) => ({
   createPost: () => dispatch(ExampleActions.createPost()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ApiExampleScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(ApiExampleScreen);

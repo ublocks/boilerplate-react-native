@@ -1,16 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { LoadingIndicator } from '@ublocks-react-native/component';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 
-import AppMonitor from './AppMonitor';
+import {
+  AppMonitor,
+  NetInfoMonitor,
+  StatusBarMonitor,
+  DropdownAlertMonitor,
+} from 'App/Monitors';
+import { AppStateActions } from 'App/Stores';
 import AppScenes from './AppScenes';
 
 class AppNavigator extends React.Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
+    onLoading: PropTypes.func.isRequired,
+    loadingMessage: PropTypes.string,
+    loadingOptions: PropTypes.object,
+  };
+
+  static defaultProps = {
+    loadingMessage: '',
+    loadingOptions: {},
   };
 
   constructor(props) {
@@ -29,15 +44,25 @@ class AppNavigator extends React.Component {
   };
 
   render() {
-    const { isLoading } = this.props;
+    const { onLoading, isLoading, loadingMessage, loadingOptions } = this.props;
     const { scenes } = this.state;
     return (
-      <AppMonitor>
-        <>
-          <Router scenes={scenes} createReducer={this.onReducerCreate} />
-          <LoadingIndicator open={isLoading} />
-        </>
-      </AppMonitor>
+      <StatusBarMonitor
+        alertComponent={({ statusBarStyle }) => (
+          <DropdownAlertMonitor inactiveStatusBarStyle={statusBarStyle} />
+        )}
+      >
+        <Router scenes={scenes} createReducer={this.onReducerCreate} />
+        <LoadingIndicator
+          open={isLoading && !loadingOptions.hide}
+          onLongPress={() => onLoading(!isLoading)}
+          text={loadingMessage}
+          countdown={__DEV__}
+        />
+
+        <AppMonitor />
+        <NetInfoMonitor />
+      </StatusBarMonitor>
     );
   }
 }
@@ -45,8 +70,16 @@ class AppNavigator extends React.Component {
 export default connect(
   (state) => ({
     isLoading: state.appState.isLoading,
+    loadingMessage: state.appState.loadingMessage,
+    loadingOptions: state.appState.loadingOptions,
   }),
-  (dispatch) => ({
-    dispatch,
-  }),
+  (dispatch) => {
+    const actions = bindActionCreators(
+      {
+        onLoading: AppStateActions.onLoading,
+      },
+      dispatch,
+    );
+    return { ...actions, dispatch };
+  },
 )(AppNavigator);

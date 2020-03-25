@@ -20,10 +20,7 @@ import { createActions } from 'reduxsauce';
  */
 const { Types, Creators } = createActions({
   // This action triggered when the app requires user to wait.
-  onLoading: ['isLoading'],
-
-  // This action triggered when the app go to foreground or background.
-  onStateChange: ['currentState'],
+  onLoading: ['isLoading', 'message', 'options'],
 
   // This action triggered when the app stars or it's locale option is changed.
   onLocaleChange: {
@@ -31,8 +28,8 @@ const { Types, Creators } = createActions({
     currentTimeZone: '',
   },
 
-  // This action triggered when the app orientation changes.
-  onOrientationChange: ['currentOrientation'],
+  // This action triggered when the app go to foreground or background.
+  onStateChange: ['currentState'],
 
   // This action triggered when the app stars, to get current app version.
   onVersionChange: {
@@ -40,6 +37,18 @@ const { Types, Creators } = createActions({
     buildVersion: '',
     bundleIdentifier: '',
   },
+
+  // This action triggered when the phone network status changes.
+  onNetInfoChange: ['state'],
+
+  // This action triggered when the system alert shows.
+  onSystemAlertShow: ['status'],
+
+  // This action triggered when the app orientation changes.
+  onOrientationChange: ['currentOrientation'],
+
+  // This action triggered when the app go to foreground or background.
+  onDeviceChange: ['device'],
 });
 
 export const AppStateTypes = Types;

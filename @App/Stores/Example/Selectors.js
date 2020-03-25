@@ -20,3 +20,7 @@ export const liveInEurope = (state) => {
 
   return europeanCities.includes(state.example.user.address.city);
 };
+
+export default {
+  liveInEurope,
+};
