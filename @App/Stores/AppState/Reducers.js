@@ -34,6 +34,14 @@ export const onAppStateChange = (state, { currentState }) => ({
   currentState,
 });
 
+export const onDeviceChange = (state, { device }) => ({
+  ...state,
+  currentDevice: {
+    ...state.currentDevice,
+    ...device,
+  },
+});
+
 export const onLocaleChange = (state, { currentLocales, currentTimeZone }) => ({
   ...state,
   currentLocales,
@@ -60,6 +68,7 @@ export const onSystemAlertShow = (state, action) => ({
  */
 export const reducer = createReducer(INITIAL_STATE, {
   [AppStateTypes.ON_LOADING]: onLoadingChange,
+  [AppStateTypes.ON_DEVICE_CHANGE]: onDeviceChange,
   [AppStateTypes.ON_LOCALE_CHANGE]: onLocaleChange,
   [AppStateTypes.ON_STATE_CHANGE]: onAppStateChange,
   [AppStateTypes.ON_VERSION_CHANGE]: onAppVersionChange,

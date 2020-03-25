@@ -19,13 +19,13 @@ import { createActions } from 'reduxsauce';
  * @see https://github.com/infinitered/reduxsauce#createactions
  */
 const { Types, Creators } = createActions({
-  updateAlertStore: ['data'],
+  // This action triggered when the app requires user to wait.
+  onApiFetching: ['data'],
 
-  onAlert: ['data'],
-  showAlert: ['data'],
-
-  cleanAlertHistory: null,
+  onApiFetchSuccess: ['isLoading', 'message', 'options'],
+  onApiFetchFailure: ['isLoading', 'message', 'options'],
 });
 
-export const AlertTypes = Types;
+export const AppApiTypes = Types;
+
 export default Creators;

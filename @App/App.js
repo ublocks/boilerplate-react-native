@@ -1,8 +1,7 @@
 // install to support react-native console time calculate
 import 'react-native-console-time-polyfill';
-
 import 'react-native-gesture-handler';
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import {
@@ -14,7 +13,6 @@ import {
 } from 'react-native-global-props';
 
 import { Global } from 'App/Theme';
-import { setI18nConfig } from 'App/Helpers/I18n';
 import createStore from 'App/Stores';
 import SplashScreen from 'App/Containers/Splash/SplashScreen';
 import AppNavigator from 'App/Navigators/AppNavigator';
@@ -23,7 +21,7 @@ const reduxStore = createStore();
 
 export const { store, persistor } = reduxStore;
 
-export default class App extends Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,6 +34,7 @@ export default class App extends Component {
 
     __DEV__ && console.log('@Apply global theme!');
   }
+
   render() {
     return (
       /**

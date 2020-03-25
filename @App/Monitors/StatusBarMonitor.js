@@ -2,26 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar, View } from 'react-native';
 
 import { Colors } from 'App/Theme';
 
 class StatusBarMonitor extends React.Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.any.isRequired,
+    alertComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     routeName: PropTypes.string.isRequired,
-    routeParams: PropTypes.object.isRequired,
+    routeParams: PropTypes.object,
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    routeParams: {},
+  };
 
   render() {
+    console.log('this.props.routeParams=>', this.props.routeParams);
     const {
       children,
+      alertComponent,
       routeParams: {
         topBarColor = Colors.white,
         bottomBarColor = Colors.white,
-        statusBarStyle,
+        statusBarStyle = 'dark-content',
       } = {},
     } = this.props;
     const topBarColorStyle = {
@@ -40,6 +45,8 @@ class StatusBarMonitor extends React.Component {
         />
         <SafeAreaView style={topBarColorStyle} />
         <SafeAreaView style={bottomBarColorStyle}>{children}</SafeAreaView>
+
+        {alertComponent({ statusBarStyle })}
       </>
     );
   }

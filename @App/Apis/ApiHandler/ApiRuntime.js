@@ -2,10 +2,9 @@ import axios from 'axios';
 import { Alert } from 'react-native';
 import { isEmpty } from 'lodash';
 
-import { store } from 'App/App';
 import { Config } from 'App/Config';
-import { UserActions } from 'App/Stores';
-import DefaultErrorHandler from './DefaultErrorHandler';
+import { UserActions, AppStore } from 'App/Stores';
+import { DefaultErrorHandler, DefaultSuccessHandler } from './DefaultHandler';
 
 const Runtime = async ({
   url,
@@ -26,7 +25,7 @@ const Runtime = async ({
   try {
     // Get current app locale status
     if (!acceptLanguage) {
-      const appLocales = store.getState().appState.currentLocales;
+      const appLocales = AppStore.getState().appState.currentLocales;
       if (appLocales instanceof Array) {
         acceptLanguage = appLocales.map((e) => e.languageTag).toString();
       }
@@ -70,12 +69,13 @@ const Runtime = async ({
 
     // Auto refresh token
     if (res.headers && !isEmpty(res.headers.authorization)) {
-      store.dispatch(UserActions.onUserRefreshToken(res.headers.authorization));
+      AppStore.dispatch(UserActions.onUserRefreshToken(res.headers.authorization));
     }
 
     if (typeof successHandler === 'function') {
       await successHandler(res);
     }
+    await DefaultSuccessHandler(res);
     return res;
   } catch (err) {
     // if error has normal response, use default handling

@@ -3,7 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { Platform } from 'react-native';
 
 import createSensitiveStorage from 'redux-persist-sensitive-storage';
-import storage from 'redux-persist/lib/storage';
+import asyncStorage from '@react-native-community/async-storage';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
@@ -16,6 +16,7 @@ import createMigrations from './CreateMigrations';
  * (like API tokens, private and sensitive data, etc.).
  *
  * If you need to store sensitive information, use redux-persist-sensitive-storage.
+ * NOTICE: sensitive-storage will not wipe data when removing app in iOS.
  * @see https://github.com/CodingZeal/redux-persist-sensitive-storage
  */
 
@@ -27,16 +28,19 @@ const sensitiveStorage = createSensitiveStorage({
 
 const persistConfig = {
   key: 'root',
-  // Remove "storage" to use sensitive persist storage.
-  storage: storage || sensitiveStorage,
+  // Remove "asyncStorage" to use sensitive persist storage.
+  storage: asyncStorage || sensitiveStorage,
   version: 0,
   migrate: createMigrations,
   /**
    * Blacklist state that we do not need/want to persist
    */
   blacklist: [
+    'appApi',
+    'appAlert',
     'appState',
     'appRoute',
+    // 'appApi',
     // 'auth',
   ],
 };

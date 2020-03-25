@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DeviceInfo from 'react-native-device-info';
+import VersionNumber from 'react-native-version-number';
+import Orientation from 'react-native-orientation-locker';
+import * as RNLocalize from 'react-native-localize';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AppState } from 'react-native';
-import * as RNLocalize from 'react-native-localize';
-import VersionNumber from 'react-native-version-number';
-import Orientation from 'react-native-orientation-locker';
 
 import { setI18nConfig } from 'App/Helpers/I18n';
 import AppStateActions from 'App/Stores/AppState/Actions';
@@ -19,8 +20,8 @@ setI18nConfig();
 
 class AppMonitor extends React.Component {
   static propTypes = {
-    children: PropTypes.any.isRequired,
     handleAppStateUpdate: PropTypes.func.isRequired,
+    handleAppDeviceUpdate: PropTypes.func.isRequired,
     handleAppLocaleUpdate: PropTypes.func.isRequired,
     handleAppVersionUpdate: PropTypes.func.isRequired,
     handleAppOrientationUpdate: PropTypes.func.isRequired,
@@ -29,10 +30,24 @@ class AppMonitor extends React.Component {
   /**
    * Register your event listeners when the app is mounted
    */
-  componentDidMount() {
+  async componentDidMount() {
     // Update app version when starts
-    const { handleAppVersionUpdate } = this.props;
+    const { handleAppVersionUpdate, handleAppDeviceUpdate } = this.props;
+
+    // Get current package version
     handleAppVersionUpdate(VersionNumber);
+
+    // Get current device information
+    handleAppDeviceUpdate({
+      isTablet: DeviceInfo.isTablet(),
+      isEmulator: await DeviceInfo.isEmulator(),
+      systemVersion: DeviceInfo.getSystemVersion(),
+      deviceId: DeviceInfo.getDeviceId(),
+      deviceName: await DeviceInfo.getDeviceName(),
+      totalMemoryInMb: (await DeviceInfo.getTotalMemory()) / 1024 / 1024,
+      // isTablet: DeviceInfo.isTablet(),
+      // isTablet: DeviceInfo.isTablet(),
+    });
 
     // kick off the state updates
     this.onAppStateChange();
@@ -109,8 +124,8 @@ class AppMonitor extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
-    return children;
+    // return this.props.children;
+    return null;
   }
 }
 
@@ -120,6 +135,7 @@ export default connect(
     bindActionCreators(
       {
         handleAppStateUpdate: AppStateActions.onStateChange,
+        handleAppDeviceUpdate: AppStateActions.onDeviceChange,
         handleAppLocaleUpdate: AppStateActions.onLocaleChange,
         handleAppVersionUpdate: AppStateActions.onVersionChange,
         handleAppOrientationUpdate: AppStateActions.onOrientationChange,

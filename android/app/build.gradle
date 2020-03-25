@@ -180,6 +180,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-device-info')
     implementation project(':react-native-firebase')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -190,12 +191,10 @@ dependencies {
     addUnimodulesDependencies()
     
     // add for react-native-firebase
-    implementation "com.google.firebase:firebase-messaging:18.0.0"
-    // notification badge on Android
+    implementation "com.google.android.gms:play-services-base:17.0.0"
+    implementation "com.google.firebase:firebase-core:17.0.1"
+    implementation "com.google.firebase:firebase-messaging:19.0.0"
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
-    // Firebase dependencies
-    implementation "com.google.android.gms:play-services-base:16.1.0"
-    implementation "com.google.firebase:firebase-core:16.0.9"
     
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";

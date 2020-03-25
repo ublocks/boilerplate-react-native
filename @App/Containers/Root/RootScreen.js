@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Text, View, Button, SafeAreaView } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { NavBar } from '@ublocks-react-native/component';
 import { translate as t } from 'App/Helpers/I18n';
@@ -37,14 +37,15 @@ class RootScreen extends React.Component {
   render() {
     const { appRoute } = this.props;
     return (
-      <SafeAreaView style={styles.container}>
-        <NavBar
+      <View style={styles.container}>
+        {/* <NavBar
           appRoute={appRoute}
           title="App Title"
           style={styles.navBar}
           leftComponent={<Text style={styles.text}>{t('root_left')}</Text>}
           rightComponent={<Text style={styles.text}>{t('root_right')}</Text>}
-        />
+          // statusbarStyle="dark-content"
+        /> */}
         <View style={styles.bodyWrapper}>
           <Text style={styles.title}>{t('root_hello_world')}</Text>
           <Text style={styles.greeting}>{t('root_greeting')}</Text>
@@ -64,7 +65,7 @@ class RootScreen extends React.Component {
             />
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }

@@ -35,12 +35,13 @@ target 'Boilerplate' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # Required by RNFirebase
-  pod 'Firebase/Core', '~> 6.3.0'
-  pod 'Firebase/Messaging', '~> 6.3.0'
+  pod 'Firebase/Core', '~> 6.13.0'
+  pod 'Firebase/Messaging', '~> 6.13.0'
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase/ios'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'BoilerplateTests' do
     inherit! :search_paths

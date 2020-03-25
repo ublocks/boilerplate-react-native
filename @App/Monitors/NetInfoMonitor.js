@@ -9,7 +9,6 @@ class NetInfoMonitor extends React.Component {
   removeNetInfoListener = null;
 
   static propTypes = {
-    children: PropTypes.any.isRequired,
     currentNetworkInfo: PropTypes.object.isRequired,
     handleAppNetInfoUpdate: PropTypes.func.isRequired,
   };
@@ -44,8 +43,7 @@ class NetInfoMonitor extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
-    return children;
+    return null;
   }
 }
 

@@ -5,7 +5,12 @@ import { bindActionCreators } from 'redux';
 import { LoadingIndicator } from '@ublocks-react-native/component';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 
-import { AppMonitor, NetInfoMonitor, AndroidBackKeyMonitor } from 'App/Monitors';
+import {
+  AppMonitor,
+  NetInfoMonitor,
+  StatusBarMonitor,
+  DropdownAlertMonitor,
+} from 'App/Monitors';
 import { AppStateActions } from 'App/Stores';
 import AppScenes from './AppScenes';
 
@@ -42,19 +47,22 @@ class AppNavigator extends React.Component {
     const { onLoading, isLoading, loadingMessage, loadingOptions } = this.props;
     const { scenes } = this.state;
     return (
-      <AppMonitor>
-        <NetInfoMonitor>
-          <AndroidBackKeyMonitor>
-            <Router scenes={scenes} createReducer={this.onReducerCreate} />
-            <LoadingIndicator
-              open={isLoading && !loadingOptions.hide}
-              onLongPress={() => onLoading(!isLoading)}
-              text={loadingMessage}
-              countdown={__DEV__}
-            />
-          </AndroidBackKeyMonitor>
-        </NetInfoMonitor>
-      </AppMonitor>
+      <StatusBarMonitor
+        alertComponent={({ statusBarStyle }) => (
+          <DropdownAlertMonitor inactiveStatusBarStyle={statusBarStyle} />
+        )}
+      >
+        <Router scenes={scenes} createReducer={this.onReducerCreate} />
+        <LoadingIndicator
+          open={isLoading && !loadingOptions.hide}
+          onLongPress={() => onLoading(!isLoading)}
+          text={loadingMessage}
+          countdown={__DEV__}
+        />
+
+        <AppMonitor />
+        <NetInfoMonitor />
+      </StatusBarMonitor>
     );
   }
 }

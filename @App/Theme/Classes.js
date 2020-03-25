@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Colors from './Colors';
+import Metrics from './Metrics';
 
 export default StyleSheet.create({
   absolute: {
@@ -119,6 +120,18 @@ export default StyleSheet.create({
   },
   mainStart: {
     justifyContent: 'flex-start',
+  },
+  marginBottom: {
+    marginBottom: Metrics.baseMargin,
+  },
+  marginLeft: {
+    marginLeft: Metrics.baseMargin,
+  },
+  marginRight: {
+    marginRight: Metrics.baseMargin,
+  },
+  marginTop: {
+    marginTop: Metrics.baseMargin,
   },
   row: {
     flexDirection: 'row',

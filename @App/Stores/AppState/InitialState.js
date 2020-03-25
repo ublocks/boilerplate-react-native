@@ -1,7 +1,10 @@
+import { boilerplateVersion } from '../../../package.json';
+
 /**
  * The initial values for the redux state.
  */
 export const INITIAL_STATE = {
+  boilerplateVersion,
   currentOrientation: '',
   currentState: 'active',
   currentTimeZone: 'Asia/Taipei',
@@ -16,6 +19,10 @@ export const INITIAL_STATE = {
     isInternetReachable: null,
     isConnected: null,
     type: '',
+  },
+  currentDevice: {
+    isTablet: null,
+    isEmulator: null,
   },
   currentVersion: {},
   currentLocales: [],

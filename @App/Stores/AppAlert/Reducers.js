@@ -4,56 +4,32 @@
  * @see https://redux.js.org/basics/reducers
  */
 
-import { createReducer } from 'reduxsauce';
 import { INITIAL_STATE } from './InitialState';
-import { AppStateTypes } from './Actions';
-
-export const onAppVersionChange = (
-  state,
-  { appVersion, buildVersion, bundleIdentifier },
-) => ({
-  ...state,
-  currentVersion: {
-    appVersion,
-    buildVersion,
-    bundleIdentifier,
-  },
-});
-
-export const onLoadingChange = (state, { isLoading }) => ({
-  ...state,
-  isLoading,
-});
-
-export const onAppStateChange = (state, { currentState }) => ({
-  ...state,
-  currentState,
-});
-
-export const onLocaleChange = (state, { currentLocales, currentTimeZone }) => ({
-  ...state,
-  currentLocales,
-  currentTimeZone,
-});
-
-export const onOrientationChange = (state, { currentOrientation }) => ({
-  ...state,
-  currentOrientation,
-});
-
-export const onNetworkInfoChange = (state, action) => ({
-  ...state,
-  currentNetworkInfo: action.state,
-});
+import { createReducer } from 'reduxsauce';
+import { AlertTypes } from './Actions';
 
 /**
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
 export const reducer = createReducer(INITIAL_STATE, {
-  [AppStateTypes.ON_LOADING]: onLoadingChange,
-  [AppStateTypes.ON_LOCALE_CHANGE]: onLocaleChange,
-  [AppStateTypes.ON_STATE_CHANGE]: onAppStateChange,
-  [AppStateTypes.ON_VERSION_CHANGE]: onAppVersionChange,
-  [AppStateTypes.ON_NET_INFO_CHANGE]: onNetworkInfoChange,
-  [AppStateTypes.ON_ORIENTATION_CHANGE]: onOrientationChange,
+  [AlertTypes.UPDATE_ALERT_STORE]: (state, action) => ({
+    ...state,
+    ...action.data,
+  }),
+  [AlertTypes.ON_ALERT]: (state, action) => ({
+    ...state,
+    ...action.data,
+    alertShowAt: action.alertShowAt || new Date().getTime(),
+    history: [...state.history, action.data],
+  }),
+  [AlertTypes.SHOW_ALERT]: (state, action) => ({
+    ...state,
+    ...action.data,
+    alertShowAt: action.alertShowAt || new Date().getTime(),
+    history: [...state.history, action.data],
+  }),
+  [AlertTypes.CLEAN_ALERT_HISTORY]: (state, action) => ({
+    ...state,
+    history: [],
+  }),
 });
