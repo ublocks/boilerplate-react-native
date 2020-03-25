@@ -1600,10 +1600,10 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@ublocks-react-native/component@^1.0.2-alpha.27":
-  version "1.0.2-alpha.27"
-  resolved "https://registry.yarnpkg.com/@ublocks-react-native/component/-/component-1.0.2-alpha.27.tgz#7c5f8b98ba38aa30d0ab9a4db1a5b97ee0995c05"
-  integrity sha512-h1HquR+5h9ssxSrNzq8heQfiLPvhmPlKKgKSgIdvV9lKNrGv0yqCYscUlX96BG0G6YAbkFDeWC3xGwiGUKPz1Q==
+"@ublocks-react-native/component@^1.0.2-alpha.29":
+  version "1.0.2-alpha.29"
+  resolved "https://registry.yarnpkg.com/@ublocks-react-native/component/-/component-1.0.2-alpha.29.tgz#8c49961e83bc5cd2ee0477a41a3f53a53413560c"
+  integrity sha512-VZUbBLXTjh+h+93+WUvjq2lFzfrZo2OJf6Tu91i/Ch6P8fZ4UHccv57lv4x9oEeKx0wvCOySSJmy8dDSLfN7CQ==
   dependencies:
     lodash "^4.17.15"
     react-native-animatable "^1.3.3"

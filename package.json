@@ -37,7 +37,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.0",
     "@react-native-community/netinfo": "^5.5.1",
-    "@ublocks-react-native/component": "^1.0.2-alpha.27",
+    "@ublocks-react-native/component": "^1.0.2-alpha.29",
     "@ublocks-react-native/helper": "^1.0.2-alpha.18",
     "axios": "^0.19.2",
     "i18n-js": "^3.5.1",
