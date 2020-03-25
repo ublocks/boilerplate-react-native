@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import firebase from 'react-native-firebase';
 import {
   Clipboard,
   ScrollView,
@@ -10,7 +12,6 @@ import {
   Button,
 } from 'react-native';
 import { connect } from 'react-redux';
-import firebase from 'react-native-firebase';
 import { Permissions } from 'react-native-unimodules';
 
 import { getCircularReplacer } from 'App/Helpers';
@@ -25,6 +26,10 @@ import style from './FcmExampleScreenStyle';
  */
 
 class FcmExampleScreen extends React.Component {
+  static propTypes = {
+    isEmulator: PropTypes.bool.isRequired,
+  };
+
   channelId = 'test-channel';
 
   channelName = 'Test channel';
@@ -40,9 +45,15 @@ class FcmExampleScreen extends React.Component {
   async componentDidMount() {
     __DEV__ && console.log('@Mount FcmExampleScreen!');
 
-    this.handleNotificationChannel();
-    this.handleNotificationListeners();
-    await this.handleRequestPermission();
+    const { isEmulator } = this.props;
+
+    if (isEmulator && Platform.OS === 'ios') {
+      Alert.alert('Oops!', `You're running at emulator! so FCM will be disabled.`);
+    } else {
+      this.handleNotificationChannel();
+      this.handleNotificationListeners();
+      await this.handleRequestPermission();
+    }
   }
 
   handleNotificationChannel = () => {
@@ -209,6 +220,8 @@ class FcmExampleScreen extends React.Component {
 FcmExampleScreen.propTypes = {};
 
 export default connect(
-  (state) => ({}),
+  (state) => ({
+    isEmulator: state.appState.currentDevice.isEmulator,
+  }),
   (dispatch) => ({}),
 )(FcmExampleScreen);
