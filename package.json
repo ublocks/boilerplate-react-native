@@ -100,7 +100,7 @@
     "react-test-renderer": "16.9.0",
     "remote-redux-devtools": "^0.5.16",
     "sonarqube-scanner": "^2.5.0",
-    "standard-version": "^7.1.0"
+    "standard-version": "^8.0.1"
   },
   "jest": {
     "preset": "react-native",
