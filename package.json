@@ -39,7 +39,7 @@
     "@react-native-community/netinfo": "^5.5.1",
     "@ublocks-react-native/component": "^1.0.2-alpha.29",
     "@ublocks-react-native/helper": "^1.0.2-alpha.18",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "i18n-js": "^3.5.1",
     "lodash": "^4.17.19",
     "prop-types": "^15.7.2",
